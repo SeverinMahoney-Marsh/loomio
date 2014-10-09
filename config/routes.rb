@@ -15,7 +15,8 @@ Loomio::Application.routes.draw do
 
   namespace :api, path: '/api/v1' do
     resources :comments, only: :create
-	resources :groups, only: :show
+    resources :groups, only: :show
+	resources :subdomains, only: :update
   end
 
 
