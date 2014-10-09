@@ -1,6 +1,6 @@
 class API::SearchGroupsController < API::BaseController
-  def create
-	group = Group.find_by subdomain: params[:subdomain]
+  def show
+	group = Group.find_by subdomain: params[:id]
 	if group
 		if group.is_visible_to_public
 			render :json => group

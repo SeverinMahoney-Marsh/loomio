@@ -17,7 +17,8 @@ Given(/^the group is public$/) do
 end
 
 When(/^I ask the API for the group with the subdomain "(.*?)"$/) do |arg1|
-  @response = post api_search_groups_path, "subdomain" => arg1
+  # For some reason when api_search_group_path is used it does not add the /v1 to the path
+  @response = get "/api/v1/search_groups/#{arg1}"
 end
 
 Then(/^I should recieve information about the group$/) do
