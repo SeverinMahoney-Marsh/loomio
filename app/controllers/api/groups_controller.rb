@@ -1,4 +1,4 @@
-class API::SearchGroupsController < API::BaseController
+class API::GroupsController < API::BaseController
   def show
 	group = Group.find_by subdomain: params[:id]
 	if group
