@@ -18,6 +18,7 @@ Loomio::Application.routes.draw do
     resources :groups, only: :show
 	resources :subdomains, only: :update
 	resources :active_proposals, only: :show
+	resources :proposals, only: :show
   end
 
 
