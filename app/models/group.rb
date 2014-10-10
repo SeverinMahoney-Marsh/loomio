@@ -123,6 +123,9 @@ class Group < ActiveRecord::Base
            as: :invitable,
            class_name: 'Invitation'
 
+  has_many :api_group_subscriptions,
+           dependent: :destroy
+
   after_initialize :set_defaults
 
   alias :users :members

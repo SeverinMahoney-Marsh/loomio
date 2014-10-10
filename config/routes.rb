@@ -19,6 +19,7 @@ Loomio::Application.routes.draw do
 	resources :subdomains, only: :update
 	resources :active_proposals, only: :show
 	resources :proposals, only: :show
+	resources :api_group_subscriptions, only: :create
   end
 
 

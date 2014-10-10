@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141006011358) do
+ActiveRecord::Schema.define(version: 20141010053355) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,16 @@ ActiveRecord::Schema.define(version: 20141006011358) do
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
   end
+
+  create_table "api_group_subscriptions", force: true do |t|
+    t.integer  "group_id"
+    t.string   "path"
+    t.string   "tag"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "api_group_subscriptions", ["group_id"], name: "index_api_group_subscriptions_on_group_id", using: :btree
 
   create_table "attachments", force: true do |t|
     t.integer  "user_id"
