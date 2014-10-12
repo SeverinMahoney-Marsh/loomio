@@ -6,6 +6,13 @@ class Events::MotionOutcomeCreated < Event
             eventable: motion,
             discussion: motion.discussion,
             user: user)
+	
+	payload = { "event" => "motion_outcome_posted", "motion" => motion.as_json,
+				"user_name" => user.name }
+	motion.group.api_group_subscriptions.each do |subscription|
+		payload["subscription"] = subscription.as_json
+		send_api_subscription_notification subscription, payload
+	end
   end
 
   def motion
