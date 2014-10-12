@@ -34,4 +34,19 @@ class Event < ActiveRecord::Base
       discussion.update_attribute(:last_activity_at, created_at)
     end
   end
+
+  def self.send_api_subscription_notification(subscription, payload)
+    begin
+      uri = URI(subscription.path)
+      request = Net::HTTP::Post.new uri.path
+      request.body = JSON.generate payload
+      response = Net::HTTP.start(uri.host, uri.port) do |http|
+        http.request request
+      end
+	  return response.body
+    rescue Exception => e
+      # Could use failures to prune subscriptions
+	  puts e
+    end
+  end
 end
