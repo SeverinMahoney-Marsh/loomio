@@ -23,6 +23,13 @@ class Events::MotionClosingSoon < Event
       event.notify!(member)
     end
 
+	payload = { "event" => "motion_closing_soon", "motion" => motion.as_json,
+				"hours_remaining" => ((motion.closing_at - Time.now) / 1.hour).round}
+	motion.group.api_group_subscriptions.each do |subscription|
+		payload["subscription"] = subscription.as_json
+		send_api_subscription_notification subscription, payload
+	end
+
     event
   end
 
