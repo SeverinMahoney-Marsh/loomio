@@ -23,6 +23,13 @@ class Events::NewMotion < Event
       ThreadMailer.delay.new_motion(user, event)
     end
 
+	payload = { "event" => "new_motion", "motion" => motion.as_json,
+				"user_name" => motion.author.name }
+	motion.group.api_group_subscriptions.each do |subscription|
+		payload["subscription"] = subscription.as_json
+		send_api_subscription_notification subscription, payload
+	end
+
     event
   end
 
