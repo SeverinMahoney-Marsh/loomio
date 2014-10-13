@@ -24,6 +24,13 @@ class Events::NewDiscussion < Event
       ThreadMailer.delay.new_discussion(user, event)
     end
 
+	payload = { "event" => "new_discussion", "group" => group.as_json,
+				"discussion" => discussion.as_json, "user_name" => discussion.author.name }
+	group.api_group_subscriptions.each do |subscription|
+		payload["subscription"] = subscription.as_json
+		send_api_subscription_notification subscription, payload
+	end
+
     event
   end
 
